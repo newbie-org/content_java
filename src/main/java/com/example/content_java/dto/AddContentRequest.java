@@ -1,0 +1,28 @@
+package com.example.content_java.dto;
+
+
+import com.example.content_java.domain.Content;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor //기본 생성자
+@AllArgsConstructor
+@Getter
+public class AddContentRequest {
+    private String title;
+    private String author;
+
+    private String summary;
+
+    private String genre;
+
+    public Content toEntity() { //생성자 이용해서 객체 생성
+        return Content.builder()
+                .title(title)
+                .author(author)
+                .summary(summary)
+                .genre(genre)
+                .build();
+    }
+}
