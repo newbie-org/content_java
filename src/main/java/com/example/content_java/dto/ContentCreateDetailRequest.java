@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor //기본 생성자
 @AllArgsConstructor
 @Getter
-public class AddContentRequest {
+public class ContentCreateDetailRequest {
     private String title;
     private String author;
 
@@ -17,7 +17,7 @@ public class AddContentRequest {
 
     private String genre;
 
-    public Content toEntity() { //생성자 이용해서 객체 생성
+    public Content toEntity() {
         return Content.builder()
                 .title(title)
                 .author(author)
