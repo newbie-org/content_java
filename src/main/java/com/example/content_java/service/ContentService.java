@@ -24,7 +24,7 @@ public class ContentService {
         return contentRepository.findAll();
     }
 
-    /*컨텐츠 조회 메서드*/
+    /*id로 컨텐츠 조회 메서드*/
     public Content findById(long id) {
         return contentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 " + id+ "의 content를 찾을 수 없습니다."));
