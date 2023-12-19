@@ -20,10 +20,9 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
 @AutoConfigureMockMvc //MockMvc 생성, 자동 구성
@@ -77,7 +76,7 @@ class ContentApiControllerTest {
         assertThat(contents.get(0).getGenre()).isEqualTo(genre);
     }
 
-    @DisplayName("올바른 요청으로 컨텐츠 목록 조회에 성공한다.")
+    @DisplayName("올바른 요청으로 컨텐츠 목록 조회에 성공함.")
     @Test
     public void findAllContents() throws Exception {
         // given
@@ -107,7 +106,7 @@ class ContentApiControllerTest {
                 .andExpect(jsonPath("$[0].genre").value(genre));
     }
 
-    @DisplayName("올바른 요청으로 컨텐츠 조회에 성공한다.")
+    @DisplayName("올바른 요청으로 컨텐츠 조회에 성공함.")
     @Test
     public void findContent() throws Exception {
         // given
@@ -134,6 +133,33 @@ class ContentApiControllerTest {
                 .andExpect(jsonPath("$.author").value(author))
                 .andExpect(jsonPath("$.summary").value(summary))
                 .andExpect(jsonPath("$.genre").value(genre));
+    }
+
+    @DisplayName("올바른 요청으로 컨텐츠 삭제 성공함.")
+    @Test
+    public void deleteContent() throws Exception {
+        // given : content 저장
+        final String url = "/v1/contents/{id}";
+        final String title = "title";
+        final String author = "author";
+        final String summary = "summary";
+        final String genre = "genre";
+
+        Content savedContent = contentRepository.save(Content.builder()
+                .title(title)
+                .author(author)
+                .summary(summary)
+                .genre(genre)
+                .build());
+
+        // when : 저장한 content의 id값으로 삭제 api 호출
+        mockMvc.perform(delete(url, savedContent.getId()))
+                .andExpect(status().isOk());
+
+        // then : 해당 contents가 empty인지 확인
+        List<Content> contents = contentRepository.findAll();
+
+        assertThat(contents).isEmpty();
     }
 
 }
