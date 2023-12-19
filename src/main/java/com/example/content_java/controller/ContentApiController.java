@@ -26,7 +26,7 @@ public class ContentApiController {
                 .body(savedContent);
     }
 
-    /* /v1/articles GET 요청이 오면 컨텐츠 목록 조회 후 반환하는 메서드*/
+    /* /v1/contents GET 요청이 오면 컨텐츠 목록 조회 후 반환하는 메서드*/
     @GetMapping("")
     public ResponseEntity<List<ContentResponse>> findAllContents() {
         List<ContentResponse> contents = contentService.findAll() //컨텐츠 전체 조회 위한 findAll() 메서드
@@ -38,9 +38,9 @@ public class ContentApiController {
                 .body(contents); //ContentResponse로 파싱한 다음 body에 담아서 클라이언트에게
     }
 
-    /* /v1/articles/{id} GET 요청이 오면 해당 id의 컨텐츠 조회 후 반환하는 메서드*/
+    /* /v1/contents/{id} GET 요청이 오면 해당 id의 컨텐츠 조회 후 반환하는 메서드*/
     @GetMapping("/{id}")
-    public ResponseEntity<ContentResponse> findArticle(@PathVariable long id) {
+    public ResponseEntity<ContentResponse> findContent(@PathVariable long id) {
         Content content = contentService.findById(id); //id값으로 findById를 이용해서 해당 id의 컨텐츠 찾음
 
         return ResponseEntity.ok()
