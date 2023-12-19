@@ -46,5 +46,4 @@ public class ContentApiController {
         return ResponseEntity.ok()
                 .body(new ContentResponse(content)); //해당 id의 컨텐츠를 body에 담아서 전송
     }
-
 }
