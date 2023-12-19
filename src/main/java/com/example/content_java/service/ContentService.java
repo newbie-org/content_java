@@ -19,9 +19,16 @@ public class ContentService {
         return contentRepository.save(request.toEntity());
     }
 
-    /*컨텐츠 조회 메서드*/
+    /*컨텐츠 목록 조회 메서드*/
     public List<Content> findAll() {
         return contentRepository.findAll();
+    }
+
+
+    /*id 이용해서 컨텐츠 조회 메서드*/
+    public Content findById(long id) {
+        return contentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }
 
 

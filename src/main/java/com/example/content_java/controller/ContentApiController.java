@@ -37,4 +37,14 @@ public class ContentApiController {
         return ResponseEntity.ok()
                 .body(contents); //ContentResponse로 파싱한 다음 body에 담아서 클라이언트에게
     }
+
+    /* /v1/articles/{id} GET 요청이 오면 해당 id의 컨텐츠 조회 후 반환하는 메서드*/
+    @GetMapping("/{id}")
+    public ResponseEntity<ContentResponse> findArticle(@PathVariable long id) {
+        Content content = contentService.findById(id); //id값으로 findById를 이용해서 해당 id의 컨텐츠 찾음
+
+        return ResponseEntity.ok()
+                .body(new ContentResponse(content)); //해당 id의 컨텐츠를 body에 담아서 전송
+    }
+
 }
