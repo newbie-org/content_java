@@ -77,9 +77,9 @@ class ContentApiControllerTest {
         assertThat(contents.get(0).getGenre()).isEqualTo(genre);
     }
 
-    @DisplayName("findAllArticles: 블로그 글 목록 조회에 성공한다.")
+    @DisplayName("올바른 요청으로 컨텐츠 목록 조회에 성공한다.")
     @Test
-    public void findAllArticles() throws Exception {
+    public void findAllContents() throws Exception {
         // given
         final String url = "/v1/contents";
         final String title = "title";
@@ -101,7 +101,39 @@ class ContentApiControllerTest {
         // then
         resultActions
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title").value(title))
                 .andExpect(jsonPath("$[0].author").value(author))
-                .andExpect(jsonPath("$[0].title").value(title));
+                .andExpect(jsonPath("$[0].summary").value(summary))
+                .andExpect(jsonPath("$[0].genre").value(genre));
     }
+
+    @DisplayName("올바른 요청으로 컨텐츠 조회에 성공한다.")
+    @Test
+    public void findContent() throws Exception {
+        // given
+        final String url = "/v1/contents/{id}";
+        final String title = "title";
+        final String author = "author";
+        final String summary = "summary";
+        final String genre = "genre";
+
+        Content savedContent = contentRepository.save(Content.builder()
+                .title(title)
+                .author(author)
+                .summary(summary)
+                .genre(genre)
+                .build());
+
+        // when
+        final ResultActions resultActions = mockMvc.perform(get(url, savedContent.getId()));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value(title))
+                .andExpect(jsonPath("$.author").value(author))
+                .andExpect(jsonPath("$.summary").value(summary))
+                .andExpect(jsonPath("$.genre").value(genre));
+    }
+
 }
