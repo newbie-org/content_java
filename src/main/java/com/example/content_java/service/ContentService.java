@@ -30,14 +30,6 @@ public class ContentService {
         return contentRepository.save(content);
     }
 
-//    private final ContentRepository contentRepository;
-
-
-    /*컨텐츠 추가 메서드*/
-//    public Content save(ContentCreateDetailRequest request){
-//        //save()는 JpaRepository에서 지원하는 저장 메서드. AddContentRequest클래스에 저장된 값들을 content db에 저장
-//        return contentRepository.save(request.toEntity());
-//    }
 
     /*컨텐츠 목록 조회 메서드*/
     public List<Content> findAll() {
