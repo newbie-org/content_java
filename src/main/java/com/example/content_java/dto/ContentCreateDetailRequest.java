@@ -12,17 +12,6 @@ import lombok.NoArgsConstructor;
 public class ContentCreateDetailRequest {
     private String title;
     private String author;
-
     private String summary;
-
     private String genre;
-
-    public Content toEntity() {
-        return Content.builder()
-                .title(title)
-                .author(author)
-                .summary(summary)
-                .genre(genre)
-                .build();
-    }
 }
