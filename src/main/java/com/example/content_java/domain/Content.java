@@ -29,12 +29,6 @@ public class Content {
     @Column(name = "genre", nullable = false) //콘텐츠 장르
     private String genre;
 
-//    @Column(name = "createdDate", nullable = false)
-//    private String createdDate;
-//
-//    @Column(name = "lastUpdatedDate", nullable = false)
-//    private String lastUpdatedDate;
-
 
     @Builder
     public Content(String title, String author,String summary, String genre) {
