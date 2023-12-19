@@ -29,4 +29,9 @@ public class ContentService {
         return contentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 " + id+ "의 content를 찾을 수 없습니다."));
     }
+
+    /*id로 컨텐츠 삭제 메서드*/
+    public void delete(long id) {
+        contentRepository.deleteById(id); //Jpa의 deleteByID() 이용해서 DB에서 데이터 삭제
+    }
 }

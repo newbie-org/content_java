@@ -46,4 +46,15 @@ public class ContentApiController {
         return ResponseEntity.ok()
                 .body(new ContentResponse(content)); //해당 id의 컨텐츠를 body에 담아서 전송
     }
+
+    /* /v1/contents/{id} Delete 요청이 오면 해당 id의 컨텐츠 삭제하는 메서드*/
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteContent(@PathVariable long id) {
+        contentService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
+
+
 }
