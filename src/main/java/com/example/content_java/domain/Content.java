@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -38,6 +39,7 @@ public class Content {
         this.genre = genre;
     }
 
+    /*content 수정을 위한 메서드*/
     public void update(String title, String author,String summary, String genre) {
         this.title = title;
         this.author = author;

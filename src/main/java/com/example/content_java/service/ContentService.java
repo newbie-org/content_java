@@ -2,7 +2,9 @@ package com.example.content_java.service;
 
 import com.example.content_java.domain.Content;
 import com.example.content_java.dto.ContentCreateDetailRequest;
+import com.example.content_java.dto.ContentUpdateRequest;
 import com.example.content_java.repository.ContentRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +47,17 @@ public class ContentService {
     /*id로 컨텐츠 삭제 메서드*/
     public void delete(long id) {
         contentRepository.deleteById(id); //Jpa의 deleteByID() 이용해서 DB에서 데이터 삭제
+    }
+
+    /*컨텐츠 업데이트 메서드*/
+    @Transactional
+    public Content update(long id, ContentUpdateRequest request){
+        Content content = contentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 " + id+ "의 content를 찾을 수 없습니다."));
+
+        content.update(request.getTitle(), request.getAuthor(), request.getSummary(), request.getGenre());
+
+        return content;
+
     }
 }

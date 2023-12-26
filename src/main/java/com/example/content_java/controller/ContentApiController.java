@@ -3,6 +3,7 @@ package com.example.content_java.controller;
 import com.example.content_java.domain.Content;
 import com.example.content_java.dto.ContentCreateDetailRequest;
 import com.example.content_java.dto.ContentResponse;
+import com.example.content_java.dto.ContentUpdateRequest;
 import com.example.content_java.service.ContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -47,13 +48,23 @@ public class ContentApiController {
                 .body(new ContentResponse(content)); //해당 id의 컨텐츠를 body에 담아서 전송
     }
 
-    /* /v1/contents/{id} Delete 요청이 오면 해당 id의 컨텐츠 삭제하는 메서드*/
+    /* /v1/contents/{id} Delete 요청이 오면 해당 id의 컨텐츠를 삭제하는 메서드*/
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContent(@PathVariable long id) {
         contentService.delete(id);
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    /* /v1/contents/{id} Put 요청이 오면 해당 id의 컨텐츠를 수정하는 메서드*/
+    @PutMapping("/{id}")
+    public ResponseEntity<Content> updateContent(@PathVariable long id,
+                                                 @RequestBody ContentUpdateRequest request) {
+        Content updatedContent = contentService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedContent);
     }
 
 
